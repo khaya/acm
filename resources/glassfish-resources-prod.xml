@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE resources PUBLIC "-//Sun Microsystems, Inc.//DTD Application Server 9.0 Resource Definitions //EN"
+    "http://www.sun.com/software/appserver/dtds/sun-resources_1_3.dtd">
+<resources>
+    <jdbc-connection-pool
+        name="acmPool"
+        datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"
+        res-type="javax.sql.DataSource">
+        <property name="database" value="jdbc:mysql://localhost/advcm_db"/> <!-- HSQLDB uses database instead of url -->
+        <property name="url" value="jdbc:mysql://localhost/advcm_db"/>
+        <property name="user" value="root"/>
+        <property name="password" value="root"/> <!-- Use the value "()" for an empty password -->
+    </jdbc-connection-pool>
+    <jdbc-resource
+        jndi-name="acmDatasource"
+        pool-name="acmPool"
+        enabled="true"
+        object-type="user"/>
+</resources>

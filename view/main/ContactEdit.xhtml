@@ -1,0 +1,96 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a="http://richfaces.org/a4j">
+    <h:form>
+        <rich:panel>
+            <f:facet name="header">
+                <h:panelGroup>
+                    <h:outputText value="#{homeSelectedContactHelper.selectedContact.name} #{homeSelectedContactHelper.selectedContact.surname}" rendered="#{homeSelectedContactHelper.selectedContactManaged}"  />
+                    <h:outputText  value="New contact"  rendered="#{!homeSelectedContactHelper.selectedContactManaged}"/>
+                </h:panelGroup>
+            </f:facet>
+            <rich:graphValidator>
+                <h:panelGrid columns="3" rowClasses="prop" columnClasses="name,value,validatormsg">
+                    <h:outputLabel for="scName" value="#{messages['name']}:"/>
+                    <h:inputText id="scName" value="#{homeSelectedContactHelper.selectedContact.name}"/>
+                    <rich:message for="scName" styleClass="messagesingle"
+                                  errorClass="errormsg" infoClass="infomsg"
+                                  warnClass="warnmsg"/>
+
+                    <h:outputLabel for="scSurname" value="#{messages['surname']}:"/>
+                    <h:inputText id="scSurname" value="#{homeSelectedContactHelper.selectedContact.surname}"/>
+                    <rich:message for="scSurname" styleClass="messagesingle"
+                                  errorClass="errormsg" infoClass="infomsg"
+                                  warnClass="warnmsg"/>
+
+                    <h:outputLabel for="scCompany" value="#{messages['company']}:"/>
+                    <h:inputText id="scCompany" value="#{homeSelectedContactHelper.selectedContact.company}"/>
+                    <rich:message for="scCompany" styleClass="messagesingle"
+                                  errorClass="errormsg" infoClass="infomsg"
+                                  warnClass="warnmsg"/>
+
+                    <h:outputLabel for="scEmail" value="#{messages['email']}:"/>
+                    <h:inputText id="scEmail" value="#{homeSelectedContactHelper.selectedContact.email}"/>
+                    <rich:message for="scEmail" styleClass="messagesingle"
+                                  errorClass="errormsg" infoClass="infomsg"
+                                  warnClass="warnmsg"/>
+                </h:panelGrid>
+
+                <rich:toolBar>
+                    <rich:toolBarGroup>
+                        <a:commandLink reRender="contactsList,contactDetail"
+                                       action="#{homeSelectedContactHelper.insertNewContact}"
+                                       rendered="#{!homeSelectedContactHelper.selectedContactManaged}" styleClass="image-command-link">
+                            <f:setPropertyActionListener value="#{null}" target="#{homeContactsListHelper.contactsList}"/>
+
+                            <h:graphicImage value="/img/insert.png"/>
+                            <h:outputText value="#{messages['insert']}"/>
+                        </a:commandLink>
+                        <a:commandLink ajaxSingle="true" reRender="contactDetail"
+                                       rendered="#{!homeSelectedContactHelper.selectedContactManaged}" styleClass="image-command-link">
+                            <f:setPropertyActionListener value="#{false}"
+                                                         target="#{homeSelectedContactHelper.selectedContactEditing}"/>
+                            <f:setPropertyActionListener value="#{null}" target="#{homeSelectedContactHelper.selectedContact}"/>
+
+                            <h:graphicImage value="/img/cancel.png"/>
+                            <h:outputText value="#{messages['cancel']}"/>
+                        </a:commandLink>
+
+                        <a:commandLink reRender="contactsList,contactDetail"
+                                       action="#{homeSelectedContactHelper.saveContactData}"
+                                       rendered="#{homeSelectedContactHelper.selectedContactManaged}" styleClass="image-command-link">
+                            <f:setPropertyActionListener value="#{false}"
+                                                         target="#{homeSelectedContactHelper.selectedContactEditing}"/>
+                            <f:setPropertyActionListener value="#{null}" target="#{homeContactsListHelper.contactsList}"/>
+
+                            <h:graphicImage value="/img/save.png"/>
+                            <h:outputText value="#{messages['save']}"/>
+                        </a:commandLink>
+                        <a:commandLink ajaxSingle="true" reRender="contactDetail"
+                                       rendered="#{homeSelectedContactHelper.selectedContactManaged}" styleClass="image-command-link">
+                            <f:setPropertyActionListener value="#{false}"
+                                                         target="#{homeSelectedContactHelper.selectedContactEditing}"/>
+
+                            <h:graphicImage value="/img/cancel.png"/>
+                            <h:outputText value="#{messages['cancel']}"/>
+                        </a:commandLink>
+                        <a:commandLink ajaxSingle="true" reRender="contactDetail,contactsList"
+                                       action="#{homeSelectedContactHelper.deleteSelectedContact}"
+                                       rendered="#{homeSelectedContactHelper.selectedContactManaged}" styleClass="image-command-link">
+                            <f:setPropertyActionListener value="#{null}" target="#{homeContactsListHelper.contactsList}"/>
+
+                            <h:graphicImage value="/img/delete.png"/>
+                            <h:outputText value="#{messages['delete']}"/>
+                        </a:commandLink>
+                    </rich:toolBarGroup>
+                </rich:toolBar>
+            </rich:graphValidator>
+        </rich:panel>
+    </h:form>
+</ui:composition>

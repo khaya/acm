@@ -1,0 +1,31 @@
+<mail:message xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:mail ="http://jboss.com/products/seam/mail"
+              xmlns:h="http://java.sun.com/jsf/html"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jboss.com/products/seam/mail http://jboss.com/products/seam/mail-2.2.xsd">
+
+    <mail:from name="Advanced Contact Manager">
+        khayeni@gmail.com
+    </mail:from>
+    <mail:to name="#{registrationHelper.newUser.name} #{registrationHelper.newUser.surname}">
+        #{registrationHelper.newUser.email}
+    </mail:to>
+    <mail:subject>
+        #{messages.thankYouForRegistrationMailSubject}
+    </mail:subject>
+    <mail:body>
+        <p>
+        <h:outputText
+            value="#{messages['thankYouForRegistrationMailDear']}:
+            #{registrationHelper.newUser.name} #{registrationHelper.
+              newUser.surname}," />
+        <br/>
+        <h:outputText
+            value="#{messages['thankYouForRegistrationMailText']}" />
+        <br/>
+        <h:outputText value="#{messages['mailStaffSignature']}" />
+        <br/>
+
+        </p>
+    </mail:body>
+</mail:message>

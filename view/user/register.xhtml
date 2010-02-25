@@ -1,0 +1,65 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns: ="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                template="/layout/template.xhtml"
+                xmlns:a4j="http://richfaces.org/a4j">
+
+    <ui:define name="body">
+
+        <h:form id="login">
+            <rich:panel>
+                <f:facet name="header">
+                    <h:outputText value="#{messages.registration}"/>
+                </f:facet>
+
+                <rich:graphValidator>
+                    <h:panelGrid columns="3" rowClasses="prop" columnClasses="name,value,validatormsg">
+                        <h:outputLabel for="usernameRegistration" value="#{messages.username}"/>
+                        <h:inputText id="usernameRegistration" value="#{registrationHelper.newUser.username}">
+                            <f:validator validatorId="usernameExistenceValidator"/>
+                            <f:validator validatorId="reservedWordsValidator"/>
+                        </h:inputText>
+                        <rich:message for="usernameRegistration" styleClass="messagesingle"  errorClass="errormsg" infoClass="infomsg" warnClass="warnmsg"/>
+                        <h:outputLabel for="passwordRegistration" value="#{messages.password}"/>
+                        <h:inputSecret id="passwordRegistration" value="#{registrationHelper.newUser.password}"/>
+                        <rich:message for="passwordRegistration" styleClass="messagesingle"  errorClass="errormsg" infoClass="infomsg" warnClass="warnmsg"/>
+                        <h:outputLabel for="rewritePasswordRegistration" value="#{messages.rewritePassword}"/>
+                        <h:inputSecret id="rewritePasswordRegistration">
+                            <s:validateEquality for="passwordRegistration" messageId="validateNotSamePassword" operator="equal"/>
+                        </h:inputSecret>
+                        <rich:message for="rewritePasswordRegistration" styleClass="messagesingle" errorClass="errormsg" infoClass="infomsg" warnClass="warnmsg"/>
+                        <h:outputLabel for="nameRegistration" value="#{messages.name}"/>
+                        <h:inputText id="nameRegistration" value="#{registrationHelper.newUser.name}"/>
+                         <rich:message for="nameRegistration" styleClass="messagesingle" errorClass="errormsg" infoClass="infomsg" warnClass="warnmsg"/>
+                        <h:outputLabel for="surnameRegistration" value="#{messages.surname}"/>
+                        <h:inputText id="surnameRegistration" value="#{registrationHelper.newUser.surname}"/>
+                        <rich:message for="surnameRegistration" styleClass="messagesingle" errorClass="errormsg" infoClass="infomsg" warnClass="warnmsg"/>
+                        <h:outputLabel for="emailRegistration" value="#{messages.email}"/>
+                        <h:inputText id="emailRegistration" value="#{registrationHelper.newUser.email}"/>
+                        <rich:message for="emailRegistration" styleClass="messagesingle" errorClass="errormsg" infoClass="infomsg" warnClass="warnmsg"/>
+                        <h:outputLabel for="companyRegistration" value="#{messages.company}"/>
+                        <h:inputText id="companyRegistration" value="#{registrationHelper.newUser.company}"/>
+                        <rich:message for="companyRegistration" styleClass="messagesingle" errorClass="errormsg" infoClass="infomsg" warnClass="warnmsg"/>
+                        <h:outputLabel for="verifyCaptcha" value="#{messages.captcha}"/>
+                        <h:panelGroup id="verifyCaptchaPnl">
+                            <h:graphicImage id="verifyCaptchaImg" value="/seam/resource/captcha?f=#{currentDate.time}" height="20" width="70" styleClass="captchaImage"/>
+                            <h:inputText id="verifyCaptcha" value="#{captcha.response}" size="4" required="true"/>
+                        </h:panelGroup>
+                        <rich:message for="verifyCaptcha" styleClass="messagesingle" errorClass="errormsg" infoClass="infomsg" warnClass="warnmsg"/>
+                    </h:panelGrid>
+                </rich:graphValidator>
+            </rich:panel>
+            <div class="actionButtons">
+                <a4j:commandButton id="registerBtn" value="#{messages.signUp}" action="#{registrationHelper.signUp}" reRender="verifyCaptchaImg">
+                    <s:defaultAction/>
+                </a4j:commandButton>
+            </div>
+        </h:form>
+
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,39 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns: ="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a="http://richfaces.org/a4j"
+                template="layout/template.xhtml">
+
+    <ui:define name="body">
+        <h:panelGrid columns="3" width="100%" columnClasses="main-group-column,main-contacts-list-column,main-contact-detail-column">
+            <a:outputPanel id="contactsGroup">
+                <ui:include src="/main/ContactsGroups.xhtml"/>
+            </a:outputPanel>
+            <a:outputPanel id="contactsList">
+                <ui:include src="main/ContactsList.xhtml"/>
+            </a:outputPanel>
+            <a:outputPanel id="contactDetail">
+                <a:outputPanel rendered="#{homeSelectedContactHelper.selectedContact == null}">
+                    <rich:panel>
+                        <h:outputText value="No contact selected"/>
+                    </rich:panel>
+                </a:outputPanel>
+                <a:outputPanel rendered="#{homeSelectedContactHelper.selectedContact != null and homeSelectedContactHelper.selectedContactEditing == false}">
+                    <ui:include src="main/ContactView.xhtml"/>
+                </a:outputPanel>
+                <a:outputPanel rendered="#{homeSelectedContactHelper.selectedContact != null and homeSelectedContactHelper.selectedContactEditing == true}">
+                    <ui:include src="main/ContactEdit.xhtml" />
+                </a:outputPanel>
+            </a:outputPanel>
+        </h:panelGrid>
+
+
+
+
+    </ui:define>
+</ui:composition>

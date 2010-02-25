@@ -1,0 +1,39 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns: ="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    xmlns:a="https://ajax4jsf.dev.java.net/ajax"
+    template="../layout/template.xhtml">
+
+<ui:define name="body">
+
+<h:form id="login">
+
+    <rich:panel>
+        <f:facet name="header">#{messages['forgotUsername']}</f:facet>
+
+        <div class="dialog">
+            <h:panelGrid columns="3" rowClasses="prop" columnClasses="name,value,validatormsg">
+                <h:outputLabel for="email">#{messages['email']}:</h:outputLabel>
+                <h:inputText id="email" value="#{forgotUsernameHelper.email}">
+                    <rich:beanValidator />
+                </h:inputText>
+                <rich:message for="email" styleClass="messagesingle" errorClass="errormsg" infoClass="infomsg" warnClass="warnmsg"></rich:message>
+            </h:panelGrid>
+        </div>
+    </rich:panel>
+
+    <div class="actionButtons">
+        <a:commandButton value="#{messages['sendUsername']}" action="#{forgotUsernameHelper.sendUsername}"  reRender="email">
+            <s:defaultAction />
+        </a:commandButton>
+    </div>
+
+</h:form>
+    
+ </ui:define>
+</ui:composition>

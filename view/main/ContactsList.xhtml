@@ -1,0 +1,65 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns: ="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a="http://richfaces.org/a4j">
+    <h:form>
+        <rich:dataTable id="contactsTable" reRender="contactsTableDS" rows="10" value="#{homeContactsListHelper.contactsList}" var="contact">
+            <f:facet name="header">
+                <rich:columnGroup >
+                    <rich:column colspan="3">
+                        <h:outputText value="Contacts"/>
+                    </rich:column>
+                    <rich:column breakBefore="true">
+                        <h:outputText value="Name"/>
+                    </rich:column>
+                    <rich:column>
+                        <h:outputText value="Surname"/>
+                    </rich:column>
+                    <rich:column>
+                        <rich:spacer/>
+                    </rich:column>
+                </rich:columnGroup>
+            </f:facet>
+            <rich:column width="45%" sortBy="#{contact.name}" filterBy="#{contact.name}">
+                <h:outputText value="#{contact.name}"/>
+            </rich:column>
+            <rich:column width="45%" sortBy="#{contact.surname}" filterBy="#{contact.surname}">
+                <h:outputText value="#{contact.surname}"/>
+            </rich:column>
+            <rich:column width="10%">
+                <a:commandButton image="/img/view.png" ajaxSingle="true" reRender="contactDetail">
+                    <f:setPropertyActionListener value="#{contact}" target="#{homeSelectedContactHelper.selectedContact}"/>
+                    <f:setPropertyActionListener value="#{false}" target="#{homeSelectedContactHelper.selectedContactEditing}"/>
+                </a:commandButton>
+            </rich:column>
+
+            <f:facet name="footer">
+                <rich:datascroller id="contactsTableDS" for="contactsTable" renderIfSinglePage="false">
+                    <f:facet name="first">  <h:outputText value="First"/></f:facet>
+                    <f:facet name="last"><h:outputText value="Last"/></f:facet>
+                    <f:attribute name="pageIndexVar" value="pageIndexVar"/>
+                    <f:attribute name="pagesVar" value="pagesVar"/>
+                    <f:facet name="pages">
+                        <h:panelGroup>
+                            <h:outputText value="Page #{pageIndexVar} / #{pagesVar}"/>
+                        </h:panelGroup>
+                    </f:facet>
+                </rich:datascroller>
+            </f:facet>
+        </rich:dataTable>
+        <h:outputText value="#{messages.noContactsInList}" rendered="#{homeContactsListHelper.contactsList.size == 0 }"/>
+        <rich:toolBar>
+            <rich:toolBarGroup>
+                <a:commandButton image="/img/addcontact.png" ajaxSingle="true" reRender="contactDetail" action="#{homeSelectedContactHelper.createNewEmptyContactInstance}">
+                    <f:setPropertyActionListener target="#{homeSelectedContactHelper.selectedContactEditing}" value="#{true}"/>
+                </a:commandButton>
+            </rich:toolBarGroup>
+        </rich:toolBar>
+
+    </h:form>
+</ui:composition>

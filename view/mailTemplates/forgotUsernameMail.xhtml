@@ -1,0 +1,17 @@
+<m:message xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:m="http://jboss.com/products/seam/mail"
+    xmlns:h="http://java.sun.com/jsf/html">
+
+    <m:from name="demetrio">khayenin@voxtelecom.co.za</m:from>
+    <m:to name="#{forgotUsernameHelper.email}">#{forgotUsernameHelper.email}</m:to>
+    <m:subject>#{messages['forgotUsernameMailSubject']}</m:subject>
+
+    <m:body>
+        <p>
+        	<h:outputText value="#{messages['forgotUsernameMailContent']}" /><br/><br/>
+        	<h:outputText value="#{messages['forgotUsernameMailUsernameLabel']}: " />
+			<h:outputText value="#{forgotUsernameHelper.usernameFound}" style="font-weight: bold;" />
+        </p>
+    </m:body>
+
+</m:message>

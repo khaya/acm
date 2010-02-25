@@ -1,0 +1,36 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a="http://richfaces.org/a4j">
+    <h:form>
+        <rich:panel>
+            <f:facet name="header">
+                <h:outputText value="#{homeSelectedContactHelper.selectedContact.name} #{homeSelectedContactHelper.selectedContact.surname}"/>
+            </f:facet>
+            <h:panelGrid columns="2" rowClasses="prop" columnClasses="name,value">
+                <h:outputText value="Name"/>
+                <h:outputText value="#{homeSelectedContactHelper.selectedContact.name}"/>
+                <h:outputText value="Surname"/>
+                <h:outputText value="#{homeSelectedContactHelper.selectedContact.surname}"/>
+                <h:outputText value="Company"/>
+                <h:outputText value="#{homeSelectedContactHelper.selectedContact.company}"/>
+                <h:outputText value="Email"/>
+                <h:outputText value="#{homeSelectedContactHelper.selectedContact.email}"/>
+            </h:panelGrid>
+            <rich:toolBar>
+                <rich:toolBarGroup>
+                    <a:commandLink ajaxSingle="true" reRender="contactDetail" styleClass="image-command-link">
+                        <f:setPropertyActionListener value="#{true}" target="#{homeSelectedContactHelper.selectedContactEditing}"/>
+                        <h:outputText value="Edit"/>
+                    </a:commandLink>
+                </rich:toolBarGroup>
+            </rich:toolBar>
+
+        </rich:panel>
+    </h:form>
+</ui:composition>
